@@ -1,0 +1,15 @@
+{
+  "name": "Semestralka",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "watch": "webpack --watch",
+    "build": "webpack && lessc dist/styles.less dist/styles.css"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "less": "^3.9.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  }
+}

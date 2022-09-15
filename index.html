@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tanks</title>
+    <link rel="stylesheet" href="dist/styles.css" type="text/css">
+    <link rel="shortcut icon" href="fav.ico"/>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <script src="src/js/jQuery.js"></script>
+
+    <audio id="sfx_shot" preload="auto" src="sfx/shot.wav"></audio>
+    <audio id="sfx_shot_weak" preload="auto" src="sfx/shot_weak.wav"></audio>
+    <audio id="sfx_explosion" preload="auto" src="sfx/explosion.wav"></audio>
+    <audio id="sfx_charge" preload="auto" src="sfx/charge.wav"></audio>
+    <audio id="sfx_hit" preload="auto" src="sfx/hit.wav"></audio>
+    <audio id="sfx_direct_hit" preload="auto" src="sfx/direct_hit.wav"></audio>
+    <audio id="sfx_intro" preload="auto" src="sfx/intro.wav"></audio>
+    <audio id="sfx_victory" preload="auto" src="sfx/victory.mp3"></audio>
+    <audio id="sfx_overtime" preload="auto" src="sfx/overtime.mp3"></audio>
+    <audio id="sfx_notification" preload="auto" src="sfx/notification.wav"></audio>
+
+    <img id="g_tank1" src="dist/img/tank1.png" alt="Tank of player 1" hidden>
+    <img id="g_tank2" src="dist/img/tank2.png" alt="Tank of player 2" hidden>
+
+    <script src="dist/js.js"></script>
+
+    <div id="app">
+        <div id="normal-view">
+            <header>
+                <h1>Tanks</h1>
+                <nav>
+                    <a href="#r_home">Home</a>
+                    <a href="#r_help">Help</a>
+                    <a href="#r_stats">Stats</a>
+                    <a href="#r_skins">Customization</a>
+                    <a href="#r_game">Game</a>
+                </nav>
+            </header>
+            <main>
+                <article hidden data-route="#r_home" id="welcome">
+                    <h2>Home</h2>
+                    <section>
+                        <h3>About</h3>
+                        <p><b>Tanks</b> is a browser game about two immovable tanks shooting at each other. The game
+                            is meant for two players. Simple to play, intermediately hard to master with the
+                            introduction of wall and wind mechanic. More in the <a href="#r_help"><b>Help</b></a>
+                            section.</p>
+                        <p>The game also gathers various data that are accessible in the <a
+                                href="#r_stats"><b>Stats</b></a> sections. These are stored locally on your machine.
+                            If proper backend was implemented, the data could have been synchronized to cloud. But
+                            alas. The site will at least tell you when you go offline, making the would-be sync
+                            impossible, and back online, allowing the sync again.</p>
+                    </section>
+                    <section>
+                        <div id="play-button-wrapper">
+                            <a href="#r_game"><button id="play-button">Play the game</button></a>
+                        </div>
+                    </section>
+                </article>
+                <article hidden data-route="#r_help" id="help">
+                    <h2>Help</h2>
+                    <section>
+                        <h3>How to play</h3>
+                        <p><b>Aim</b> with a <b>mouse</b>.</p>
+                        <p>Press, hold and then release <b>left mouse button</b> to shoot.<br/>
+                            The longer you hold down the button, the further you will <b>shoot</b>.
+                            If held long enough, the tank will overcharge and <b>shoot automatically</b> for <b>extra
+                                firepower</b> known as <b>windbreaker</b>. Useful against the <b>strongest winds</b>.
+                        </p>
+                        <p>To win, bring your opponent's tank to <b>zero health</b>.</p>
+                    </section>
+                    <section>
+                        <h3>Mechanics</h3>
+                        <p></p>
+                        <details>
+                            <summary><span>Wall</span></summary>
+                            <p>If turned on during game setup a wall will be present in the middle of the
+                                battlefield. Tanks need to shoot in arcs above it, creating spicier gameplay. The
+                                wall height is proportional to the current wind power.</p>
+                        </details>
+                        <details>
+                            <summary><span>Wind</span></summary>
+                            <p>Wind changes the trajectory of tank shells. Look for the top-center bar for wind
+                                indicator. The length and speed of the arrows in the bar indicate the wind power and
+                                direction.</p>
+                        </details>
+                        <details>
+                            <summary><span>Overtime</span></summary>
+                            <p>To make the game more balanced towards the player two, who starts as second, the <b>overtime</b>
+                                concept is introduced. If the second player's tank is to explode whilst the first
+                                player's tank is at the brink of destruction, the second player gets a last chance
+                                to destroy his opponent's tank, making the shots fired on both sides the same. If
+                                they succeed and both tanks are destroyed, the game ends in a <b>draw</b>.</p>
+                        </details>
+                    </section>
+                    <section>
+                        <h2>Game modes</h2>
+                        <details>
+                            <summary><span>Classic</span></summary>
+                            <p>After each shot, the environment changes resulting in randomized wind speed, wind
+                                direction and, if present, wall height.</p>
+                        </details>
+                        <details>
+                            <summary><span>Mirror</span></summary>
+                            <p>Constructed to provide the most balanced experience for both players. Each has the
+                                same conditions regarding the wind speed and, if present, wall height. The wind
+                                direction changes accordingly. After the round finishes with both players having
+                                shot with the same conditions, the environment is then randomized.</p>
+                        </details>
+                    </section>
+                    <section>
+                        <h3>Debug</h3>
+                        <p>Use the debug menu to set your own 'under the hood' properties of the game. If debug is allowed, an icon marked with 'X' will show up beneath the second player's health bar.</p>
+                        <p>Changes made will persist until the page is reloaded.</p>
+                    </section>
+                    <section>
+                        <h2>Video footage</h2>
+                        <p>To get yourself in the proper mood for upcoming tank battles, feel free to watch the
+                            footage below of the eastern front 1944 (colorized).</p>
+                        <div class="video-holder">
+                            <video src="video/video.mp4"></video>
+                            <div class="video-controls">
+                                <div class="play"></div>
+                                <div class="seek">
+                                    <input min="0" step="0.005" max="1" type="range">
+                                </div>
+                                <div class="volume"></div>
+                                <div class="volume-range">
+                                    <input min="0" step="0.01" max="1" type="range">
+                                </div>
+                                <div class="fullscreen"></div>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+                <article hidden data-route="#r_stats" id="stats">
+                    <h2>Stats</h2>
+                    <section>
+                        <h3>Stats table</h3>
+                        <table>
+                            <tr>
+                                <td>Shells fired</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Direct hits</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Wall hits</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Ground hits</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total damage done</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Left tank damage received</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Right tank damage received</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total matches finished</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Left side wins</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Right side wins</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Overtimes</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Draws</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>Connection status</h3>
+                        <div id="online">Connection status:</div>
+                        <p>If you were online and if backend was implemented, your stats would get uploaded to
+                            create a massive collective archive of these stats. Like total matches plated across the
+                            whole world! But since BE is non existent, all this section will say is whether you are
+                            online or not.</p>
+                        <p>To demonstrate Notifications, allow your browser to show Notifications from this site to
+                            be notified when you go offline or online! Notifications are currently: <span
+                                    id="notification-status">Awaiting confirmation</span></p>
+                    </section>
+                    <section>
+                        <h3>Clear stats</h3>
+                        <p>If for whatever reason you would like to track your stats from zero, click the button
+                            bellow.</p>
+                        <button id="clear-stats">Clear</button>
+                    </section>
+                </article>
+                <article hidden data-route="#r_game" id="game-setup">
+                    <h2>Game setup</h2>
+                    <section id="setup-form-section">
+                        <h3>Game properties</h3>
+                        <form id="form">
+                            <fieldset>
+                                <legend>Properties</legend>
+                                <div>
+                                    <label for="form-plr1-name">Player 1 name:</label>
+                                    <input maxlength="16" required placeholder="Player 1" id="form-plr1-name"
+                                           type="text">
+                                </div>
+                                <div>
+                                    <label for="form-plr2-name">Player 2 name:</label>
+                                    <input maxlength="16" required placeholder="Player 2" id="form-plr2-name"
+                                           type="text">
+                                </div>
+                                <div>
+                                    <label for="form-gamemode">Game mode:</label>
+                                    <select id="form-gamemode">
+                                        <option value="classic">Classic</option>
+                                        <option value="mirror">Mirror</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <input id="form-wall" checked="checked" type="checkbox">
+                                    <label for="form-wall">Enable wall</label>
+                                </div>
+                                <div>
+                                    <input id="form-debug" type="checkbox">
+                                    <label for="form-debug">Allow debug</label>
+                                </div>
+                            </fieldset>
+                            <div class="play-button-holder">
+                                <input type="submit" value="Play!">
+                            </div>
+                        </form>
+                    </section>
+                    <section id="setup-back-section">
+                        <h3>Game in progress</h3>
+                        <div class="text-center">
+                            <p>There is currently a game in progress.</p>
+                            <button>Return to the game</button>
+                            <button>Set up a new game</button>
+                        </div>
+                    </section>
+                </article>
+                <article hidden data-route="#r_skins" id="skins">
+                    <h2>Customization</h2>
+                    <section>
+                        <h3>Custom shooting sound</h3>
+                        <p>The customization possibilities may be extended later, for now you can drag 'n' drop an audio
+                            file to set a custom sound that will be played instead of the default shooting sound.
+                            Click the reset button to enable the default sound again.</p>
+                        <div id="drop-here">
+                            <div id="drop-here-dummy">Drop here</div>
+                        </div>
+                        <div id="drop-reset">
+                            <button>Reset</button>
+                        </div>
+                        <div id="drop-info">
+                            Uploaded file info:
+                            <div></div>
+                        </div>
+                    </section>
+                </article>
+                <article hidden data-route="#r_fail" id="invalid-hash">
+                    <h2>Error</h2>
+                    <section>
+                        <h3>Undefined #</h3>
+                        <p>Invalid navigation hash. Check again that you typed it in correctly. Or even better, don't
+                            play with the hash. Instead, use the UI buttons.</p>
+                    </section>
+                </article>
+            </main>
+            <footer>
+                Created by Matyáš Neuvirt | neuvimat@fel.cvut.cz | 2019
+            </footer>
+        </div>
+        <div hidden id="game-view">
+            <div id="game">
+                <div id="game-debug-button">
+                    X
+                </div>
+                <div id="game-exit-button">
+                    ☰
+                </div>
+                <div id="game-debug-content">
+
+                </div>
+                <div id="game-ui">
+                    <div class="left first-player-status player-status">
+                        <progress max="100" value="50"></progress>
+                        <div class="player-name">Player 1</div>
+                    </div>
+                    <div class="middle wind">
+                        <div class="wind-left">
+                            <div class="wind-left-bar"></div>
+                        </div>
+                        <div class="wind-right">
+                            <div class="wind-right-bar"></div>
+                        </div>
+                    </div>
+                    <div class="right second-player-status player-status">
+                        <progress max="100" value="100"></progress>
+                        <div class="player-name">Player 2</div>
+                    </div>
+                </div>
+                <canvas id="game-canvas-static"></canvas>
+                <canvas id="game-canvas-dynamic"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

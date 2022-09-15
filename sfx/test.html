@@ -1,0 +1,45 @@
+<audio id="shot_weak" src="shot_weak.wav" controls="controls"></audio>
+<audio id="shot" src="shot.wav"></audio>
+<audio id="charge" src="charge.wav" controls="controls"></audio>
+
+<script>
+    let shot = document.getElementById('shot');
+    let shot_weak = document.getElementById('shot_weak');
+    let charge = document.getElementById('charge');
+    let time = 0;
+    let forcedshot = false;
+
+    shot_weak.volume = 0.5;
+
+    window.addEventListener('mousedown', ()=>{
+        time = Date.now();
+        charge.play();
+    });
+    window.addEventListener('mouseup', ()=>{
+        charge.pause();
+        if (forcedshot) {
+            forcedshot = false;
+            console.log(charge.currentTime / charge.duration);
+            console.log(charge.currentTime);
+            console.log(charge.duration);
+            return;
+        }
+        if (Date.now() - time > 600) {
+            shot.currentTime = 0;
+            shot.play();
+        }
+        else {
+            shot_weak.currentTime = 0;
+            shot_weak.play();
+        }
+        console.log(charge.currentTime / charge.duration);
+        console.log(charge.currentTime);
+        console.log(charge.duration);
+        charge.currentTime = 0;
+    });
+    charge.addEventListener('ended', ()=>{
+        shot.currentTime = 0;
+        shot.play();
+        forcedshot = true;
+    })
+</script>

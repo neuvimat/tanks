@@ -1,0 +1,198 @@
+main {
+    flex: 1 0 0;
+    padding: .6rem 1.5rem;
+    font-size: 1.18rem;
+
+    summary + p {
+        margin-top: .3rem;
+        padding-left: 1rem;
+    }
+
+    fieldset {
+        margin: auto;
+        max-width: 300px;
+        > div {
+            padding: .25rem 0;
+        }
+    }
+
+    #play-button {
+        &-wrapper {
+            margin-top: 4em;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+        }
+        border-radius: 1rem;
+        border: none;
+        background: green;
+        padding: 0.7rem 1rem;
+        font-size: 1.5rem;
+        color: white;
+        transition: 200ms;
+
+        &:hover {
+            background: #800001;
+            color: white;
+        }
+    }
+
+    .play-button-holder {
+        margin-top: 1rem;
+        text-align: center;
+
+        input[type=submit] {
+            border-radius: 1rem;
+            border: none;
+            background: green;
+            padding: .7rem 1rem;
+            font-size: 1.5rem;
+            color: white;
+            transition: 200ms;
+        }
+
+        input[type=submit]:hover {
+            background: #800001;
+            color: white;
+        }
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .video-holder {
+        margin: auto;
+        max-width: 500px;
+        width: 100%;
+
+        video {
+            max-width: 500px;
+            width: 100%;
+            display: block;
+        }
+
+        .video-controls {
+            display: flex;
+            width: 100%;
+            height: 32px;
+            background-color: #444444;
+
+            > div {
+                height: 32px;
+            }
+
+            .play {
+                flex: 0 0 auto;
+                background-image: url("img/play.png");
+                width: 32px;
+            }
+            .play[data-playing=true] {
+                background-image: url("img/pause.png");
+            }
+
+            .seek {
+                flex: 1 0 100px;
+            }
+            .volume {
+                flex: 0 0 auto;
+                background-image: url("img/nonmuted.png");
+                width: 32px;
+            }
+            .volume[data-muted=true] {
+                background-image: url("img/muted.png");
+            }
+            .volume-range {
+                flex: 0 1 80px;
+            }
+            .fullscreen {
+                flex: 0 0 auto;
+                width: 32px;
+                background-image: url("img/fullscreen.png");
+            }
+            input[type=range] {
+                margin-top: 4px;
+                width: calc(100% - 8px);
+                min-width: 32px;
+            }
+        }
+    }
+
+    #stats {
+        table {
+            width: 100%;
+            max-width: 300px;
+        }
+        table, tr, td {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        td:nth-child(2) {
+            text-align: center;
+        }
+    }
+
+    #online::after {
+        color: green;
+        content: 'Online';
+    }
+    #online[data-online=false]::after {
+        color: red;
+        content: 'Offline';
+    }
+
+    #allow-notifications {
+        display: none;
+    }
+    #notification-status {
+        font-weight: bold;
+    }
+
+    #drop-here-dummy {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 25vh;
+        border: 2px dotted black;
+        border-radius: 6px;
+    }
+    #drop-reset {
+        margin-top: 1rem;
+        text-align: center;
+        button {
+            border-radius: 1rem;
+            border: none;
+            background: green;
+            padding: .7rem 1rem;
+            font-size: 1.5rem;
+            color: white;
+            transition: 200ms;
+        }
+        button:hover {
+            background: #800001;
+            color: white;
+        }
+    }
+
+    .pulse {
+        animation-name: drag-anim;
+        animation-duration: 0.7s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+
+    summary span {
+        cursor: pointer;
+    }
+}
+
+@keyframes drag-anim {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.90);
+    }
+}
