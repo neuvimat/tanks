@@ -1,5 +1,7 @@
 # Overview and retrospective in English
 
+**Demo available at [https://digistruct.cz/tanks](https://digistruct.cz/tanks)**
+
 This project was created as an assignment during my studies to get Bachelor's degree. To get the best possible grade, I implemented as most features as possible, thus explaining some of the seemingly 'random' additions to the site.
 
 The project is a simple game based on the 'Worms' franchise featuring two stationary tanks trying to destroy each other.
